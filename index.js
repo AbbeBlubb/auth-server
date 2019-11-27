@@ -2,6 +2,7 @@ const express = require('express');
 const http = require('http');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
+const router = require('./router');
 
 
 
@@ -15,7 +16,7 @@ const app = express();
 // Middlewares; all requests are passed to these in order
 app.use(morgan('combined')); // Morgan logs incoming requests to the console. Practical for debugging
 app.use(bodyParser.json({type: '*/*'})); // Parses incoming requests, specifically to JSON
-
+router(app);
 
 
 // Server setup - getting the express application to talk to the world
