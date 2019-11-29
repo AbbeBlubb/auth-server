@@ -1,24 +1,10 @@
-const User = require('../models/User');
 const express = require('express');
 const router = express.Router();
+const Authentication = require('../controllers/authentication');
+const Root = require('../controllers/root');
 
 
-router.get('/', function(req, res, next) {
-  // request, response, next will be used for error handling
-  res.send(['Elvis', 'Jacko']);
-});
-
-
-// Construct the document
-const userModel = new User({
-  date: Date(),
-  email: 'test',
-  password: 'hello'
-});
-
-
-// Write to DB
-//userModel.save();
-// Works!
+router.get('/', Root);
+router.post('/signup', Authentication.signup);
 
 module.exports = router;
