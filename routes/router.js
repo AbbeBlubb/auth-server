@@ -1,10 +1,17 @@
 const express = require('express');
 const router = express.Router();
-const authenticationController = require('../controllers/authenticationController');
+const signUpController = require('../controllers/signUpController');
+const testController = require('../controllers/testController');
 const rootController = require('../controllers/rootController');
+const passportService = require('../services/passport');
+const passport = require('passport');
+const requireAuth = require('../services/requireAuth').requireAuth;
 
 
-router.get('/', rootController);
-router.post('/signup', authenticationController);
+// ## Routes ##
+router.get('/test', testController);
+router.post('/signup', signUpController);
+// For auth requests, the request must pass the JWT authentication strategy before the callback is fired. If not, the passport.js will handle the response
+router.get('/', requireAuth, rootController);
 
 module.exports = router;

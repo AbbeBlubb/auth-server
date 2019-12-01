@@ -1,17 +1,18 @@
 const jwt = require('jwt-simple');
 const User = require('../models/User');
-const config = require('../config');
+
+
+// ## Create new user ##
 
 function createJWT(user) {
   const timestamp = new Date().getTime();
   // The object is the payload created by jwt-simple. Will be encoded. Will be used, decoded, in the passport.js-file
   // The object key sub stands for subject and is included in the jwt-simple library
   // the object key iat stands for 'issued at time' and is included in the jwt-simple library
-  return jwt.encode({ sub: user.id, iat: timestamp }, config.secretString);
+  return jwt.encode({ sub: user.id, iat: timestamp }, process.env.SECRETSTRING);
 }
 
-
-module.exports = function authenticationController(req, res, next) {
+module.exports = function signUpController(req, res, next) {
   const { email, password } = req.body;
 
   // To avoid a document without password in the DB (else it will give success response)
@@ -46,5 +47,4 @@ module.exports = function authenticationController(req, res, next) {
       return res.json({ token: createJWT(user), userId: user.id });
     });
   });
-
 };

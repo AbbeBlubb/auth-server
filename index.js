@@ -1,8 +1,4 @@
-const express = require('express');
 const mongoose = require('mongoose');
-const http = require('http');
-
-const router = require('./routes/router');
 const helpers = require('./helpers');
 const {stripIndents} = require('common-tags');
 
