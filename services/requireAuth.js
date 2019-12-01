@@ -1,4 +1,7 @@
 const passport = require('passport');
+// The passportStrategy MUST be required
+//const passportStrategy = require('./passportStrategy');
+require('./passportStrategy');
 
 // ## Create middleware for Passport auth ##
 // 'jwt': use the jwt strategy

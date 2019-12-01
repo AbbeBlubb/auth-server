@@ -4,7 +4,7 @@ const User = require('../models/User');
 
 // ## Create new user ##
 
-function createJWT(user) {
+function createJWTForUser(user) {
   const timestamp = new Date().getTime();
   // The object is the payload created by jwt-simple. Will be encoded. Will be used, decoded, in the passport.js-file
   // The object key sub stands for subject and is included in the jwt-simple library
@@ -44,7 +44,7 @@ module.exports = function signUpController(req, res, next) {
 
       // Respond to request indicating the user was created
       //return res.json(user);
-      return res.json({ token: createJWT(user), userId: user.id });
+      return res.json({ token: createJWTForUser(user), userId: user.id });
     });
   });
 };

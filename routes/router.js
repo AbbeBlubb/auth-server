@@ -3,8 +3,6 @@ const router = express.Router();
 const signUpController = require('../controllers/signUpController');
 const testController = require('../controllers/testController');
 const rootController = require('../controllers/rootController');
-const passportService = require('../services/passport');
-const passport = require('passport');
 const requireAuth = require('../services/requireAuth').requireAuth;
 
 
