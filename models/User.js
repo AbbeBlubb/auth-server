@@ -2,14 +2,14 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt-nodejs');
 
 
-// Define the scheema
+// ## Define the scheema ##
 const userSchema = new mongoose.Schema({
   date: Date,
   email: { type: String, unique: true },
   password: String
 });
 
-// Use the "pre-save hook" of the userSchema. Before save, run callback
+// ## Use the "pre-save hook" of the userSchema. Before save, run callback ##
 userSchema.pre('save', function(next) {
 
   // The context is the user model
@@ -35,5 +35,5 @@ userSchema.pre('save', function(next) {
   });
 });
 
-// Create the model / model class, with the scheema, and export
+// ## Create the model / model class, with the scheema, and export ##
 module.exports = mongoose.model('User', userSchema);

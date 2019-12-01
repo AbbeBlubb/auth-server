@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const Authentication = require('../controllers/authentication');
-const Root = require('../controllers/root');
+const authenticationController = require('../controllers/authenticationController');
+const rootController = require('../controllers/rootController');
 
 
-router.get('/', Root);
-router.post('/signup', Authentication.signup);
+router.get('/', rootController);
+router.post('/signup', authenticationController);
 
 module.exports = router;

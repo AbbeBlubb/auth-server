@@ -4,6 +4,7 @@ const http = require('http');
 
 const router = require('./routes/router');
 const helpers = require('./helpers');
+const {stripIndents} = require('common-tags');
 
 
 // Import .env-vars
@@ -20,8 +21,9 @@ mongoose.connection.on('error', err => {
 });
 mongoose.connection.once('open', () => {
   console.log(
-    '## auth-server application  is connected to mongodb ##',
-    '\n## ' + mongoUrl + ' ##'
+    stripIndents`
+    ## auth-server application is connected to mongodb ##
+    ## mongodb url: ${mongoUrl} ##`
   );
 });
 
@@ -38,8 +40,8 @@ const app = require('./app');
 const port = process.env.PORT || 4000;
 app.listen(port, function() {
   console.log(
-    "## Listening on port " + port + " ##" + "\n## Time is: " + helpers.getTime() + " ##"
+    stripIndents`
+    ## Listening on port ${port} ##
+    ## Time is: ${helpers.getTime()} ##`
   );
 });
-
-

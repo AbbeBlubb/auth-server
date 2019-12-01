@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const morgan = require('morgan');
 
 
-// App setup
+// ## App setup ##
 
 // Start/create the Express app / create an instance of express
 // Exported at the end of the file
