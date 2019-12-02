@@ -7,13 +7,19 @@ const rootController = require('../controllers/rootController');
 const requireAuth = require('../services/requireAuth').requireAuth;
 const requireSignIn = require('../services/requireSignIn').requireSignIn;
 
+/** ## Middlewares ##
+  Router:
+  First arg: route handler
+  Second optional arg: middleware
+  Third arg: callback/function/controller
+  requireSignIn: uses local auth strategy. Must be passed before controller fires. Else, the response is handled by the stategy
+  requireAuth: uses JWT auth strategy. -||-
+*/
 
 // ## Routes ##
 router.get('/test', testController);
 router.post('/signup', signUpController);
-// For sign in requests, the request must pass middleware: the local authentication strategy, before passing to the signInController/callback
 router.post('/signin', requireSignIn, signInController);
-// For auth requests, the request must pass the JWT authentication strategy before the callback is fired. If not, the passport.js will handle the response
 router.get('/', requireAuth, rootController);
 
 module.exports = router;
