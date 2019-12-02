@@ -9,6 +9,7 @@ const userSchema = new mongoose.Schema({
   password: String
 });
 
+
 // ## Use the "pre-save hook" of the userSchema. Before save, run callback ##
 userSchema.pre('save', function(next) {
 
@@ -34,6 +35,22 @@ userSchema.pre('save', function(next) {
     });
   });
 });
+
+
+// ## Comparing passwords ##
+// Create a method, comparePassword, that will have acces to the userSchema methods
+// This method will be called in passportLocalStrategy.js
+userSchema.methods.comparePassword = function(candidatePassword, callback) {
+// this.passwords is a reference to the User class password
+// Bcrypt makes the comparision
+// this.password contains the salt + the hashed password
+// Bcrypt will hash the given candidate password
+// If equal, thisMatch will be true, else false
+bcrypt.compare(candidatePassword, this.password, function(err, isMatch) {
+    if (err) { return callback(err); }
+    callback(null, isMatch);
+  });
+};
 
 // ## Create the model / model class, with the scheema, and export ##
 module.exports = mongoose.model('User', userSchema);

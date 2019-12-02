@@ -19,7 +19,7 @@ const jwtOptions = {
 const jwtLogin = new JwtStrategy(jwtOptions, function(payload, done){
   console.log('passport.js payload: ', payload);
   // See if the sub/user.id in the payload exists in the DB
-  // If it does, call the done-callback with that object
+  // If it does, call the done-callback with the returned object (the whole DB document)
   // Otherwise, call the done-callback without a user object
   User.findById(payload.sub, function(err, user) {
     // If search could not occur because of an error from findById, call done with the error and instead of an object, a false
