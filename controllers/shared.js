@@ -1,6 +1,6 @@
 const jwt = require('jwt-simple');
 
-/** About
+/** ## shared.createJWTForUser ##
   createJWTForUser takes 'user' as arg to return a token.
   user from signUpController: instance of new User (model), that is saved to the DB.
   user from signInController: passportLocalStrategy adds .user to the req with the Passport callback 'done'. This req.user is used in signInController to call createJWTForUser.

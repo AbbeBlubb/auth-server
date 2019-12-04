@@ -2,7 +2,16 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt-nodejs');
 
 
+/** ## In this file ##
+  - Define the scheema
+  - Use the "pre-save hook" on the userSchema
+  - Comparing passwords
+  - Create the model / model class, with the scheema, and export
+ */
+
+
 // ## Define the scheema ##
+
 const userSchema = new mongoose.Schema({
   date: Date,
   email: { type: String, unique: true },
@@ -10,12 +19,13 @@ const userSchema = new mongoose.Schema({
 });
 
 
-// ## Use the "pre-save hook" of the userSchema. Before save, run callback ##
+// ## Use the "pre-save hook" on the userSchema ##
+
 userSchema.pre('save', function(next) {
 
-  // The context is the user model
-  // The userSchema is an instance of the User model (in this file the User model is exported, and in the router file, used as new User).
-  // Inside the callback, const user is created, and given the this context, so it's possible to reference user.email, user.password (I suppose, instead of this.email, this.password)
+  // The context is the user model. userSchema is an instance of the User model.
+  // User model is exported in this file and imported in the signUpController.js.
+  // Inside this callback, const user is to reference user.email and user.password instead of this.email, this.password.
   const user = this;
 
   // Generate a salt, with complexity 10, and when that's ready, run callback
@@ -30,7 +40,7 @@ userSchema.pre('save', function(next) {
       user.password = hash;
       console.log('Encrypted password: ', user.password);
 
-      // Continue with next step after the pre-save hook
+      // Continue with next step after the pre-save hook callback
       next();
     });
   });
@@ -38,6 +48,7 @@ userSchema.pre('save', function(next) {
 
 
 // ## Comparing passwords ##
+
 // Create a method, comparePassword, that will have acces to the userSchema methods
 // This method will be called in passportLocalStrategy.js
 userSchema.methods.comparePassword = function(candidatePassword, callback) {
@@ -52,5 +63,7 @@ bcrypt.compare(candidatePassword, this.password, function(err, isMatch) {
   });
 };
 
+
 // ## Create the model / model class, with the scheema, and export ##
+
 module.exports = mongoose.model('User', userSchema);
