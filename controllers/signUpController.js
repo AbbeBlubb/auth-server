@@ -39,6 +39,7 @@ module.exports = function signUpController(req, res, next) {
       if(err) { return next(err); }
 
       // Respond to request indicating the user was created
+      // If e.g. email is not provided, that key-value will automatically not be stored in the DB
       return res.json({
         userId: user.id,
         date: user.date,
