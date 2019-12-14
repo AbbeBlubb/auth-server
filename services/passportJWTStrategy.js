@@ -4,7 +4,7 @@ const JwtStrategy = require('passport-jwt').Strategy;
 const ExtractJwt = require('passport-jwt').ExtractJwt;
 
 
-// ## Setup options for the JWT Strategy ##
+// ## JWT - Setup options for the JWT Strategy ##
 const jwtOptions = {
   // Tell Passport (in the JwtStrategy) where in the request to find the token
   // Request must have headers with key: Authorization, and value: JWT XXX

@@ -5,7 +5,7 @@ const shared = require('./shared');
 // ## Create new user ##
 
 module.exports = function signUpController(req, res, next) {
-  const { email, password, username } = req.body;
+  const { username, email, password } = req.body;
 
   // To avoid a document without password in the DB (else it will give success response)
   // To do: add possibility to log in with email
@@ -28,21 +28,23 @@ module.exports = function signUpController(req, res, next) {
     // Construct the document
     const user = new User({
       date: Date(),
+      username,
       email,
-      password,
-      username
+      password
     });
 
-    //Save the document to the DB
+    // Save the document to the DB
+    // Before save, the pre-save hook will fire a function that handles the password, se User.js
     user.save(function(err) {
       if(err) { return next(err); }
 
       // Respond to request indicating the user was created
       return res.json({
-        token: shared.createJWTForUser(user),
         userId: user.id,
+        date: user.date,
         username: user.username,
-        date: user.date
+        email: user.email,
+        token: shared.createJWTForUser(user)
       });
     });
   });
