@@ -15,7 +15,8 @@ const bcrypt = require('bcrypt-nodejs');
 const userSchema = new mongoose.Schema({
   date: Date,
   email: { type: String, unique: true },
-  password: String
+  password: String,
+  username: { type: String, unique: true }
 });
 
 
@@ -25,7 +26,7 @@ userSchema.pre('save', function(next) {
 
   // The context is the user model. userSchema is an instance of the User model.
   // User model is exported in this file and imported in the signUpController.js.
-  // Inside this callback, const user is to reference user.email and user.password instead of this.email, this.password.
+  // Inside this callback, const user is to reference user.username and user.password instead of this.username, this.password.
   const user = this;
 
   // Generate a salt, with complexity 10, and when that's ready, run callback

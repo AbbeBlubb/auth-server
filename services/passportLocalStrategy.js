@@ -5,16 +5,20 @@ const LocalStrategy = require('passport-local');
 // ## Create local strategy ##
 // For sign in, strategy 'local' is used.
 
-const localOptions = { usernameField: 'email' };
+// Options object to be fed into the local strategy options
+const localOptions = { usernameField: 'username' };
 
-// Email and password are pulled out form the request
-// First arg. is options. As default Passport will look for request->username/password. Because the request will have email/password, it must be specified where to find the username. 
+// Username and password are pulled out form the request
+// First arg. is options.
+//   - As default Passport will look for request->username/password.
+//   - Before this strategy used email/password and this was what the request had, and therefore it had to be specified where to find the username.
+//   - For the MVP I changed the login to username, so technically the localOptins is not needed, but I keep it as the optimal is to look at both username and email for login.
 // Second arg is callback
-const loacalLogin = new LocalStrategy(localOptions, function(email, password, done) {
+const loacalLogin = new LocalStrategy(localOptions, function(username, password, done) {
   // Verify the given username and password, call done with the user
-  // If the email and password is correct
+  // If the username and password is correct
   // Otherwise, call done with false
-  User.findOne({ email }, function(err, user) {
+  User.findOne({ username }, function(err, user) {
     if(err) { return done(err); }
     if(!user) { return done(null, false); }
 
