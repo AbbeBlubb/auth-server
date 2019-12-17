@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const testController = require('../controllers/testController');
+const pingController = require('../controllers/pingController');
 const signUpController = require('../controllers/signUpController');
 const signInController = require('../controllers/signInController');
-const rootController = require('../controllers/rootController');
+const usersController = require('../controllers/usersController');
 const requireAuth = require('../services/requireAuth').requireAuth;
 const requireSignIn = require('../services/requireSignIn').requireSignIn;
 
@@ -17,9 +17,9 @@ const requireSignIn = require('../services/requireSignIn').requireSignIn;
 */
 
 // ## Routes ##
-router.get('/test', testController);
+router.get('/ping', pingController);
 router.post('/signup', signUpController);
 router.post('/signin', requireSignIn, signInController);
-router.get('/', requireAuth, rootController);
+router.get('/users', requireAuth, usersController);
 
 module.exports = router;
