@@ -43,3 +43,14 @@ https://stackoverflow.com/questions/7137397/module-exports-vs-exports-in-node-js
 ### signInController - If username and/or password is not found/incorrect
 the Passport library will send:
 Unauthorized
+
+### usersController - queries all the usernames
+[
+  {
+    "date": "2019-12-17T18:12:25.000Z",
+    "username": "aaaa"
+  }
+]
+
+### usersController - if query fails
+{ error: 'Database query error'}
