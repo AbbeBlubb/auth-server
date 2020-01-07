@@ -16,7 +16,8 @@ const userSchema = new mongoose.Schema({
   date: Date,
   email: { type: String, unique: true },
   password: String,
-  username: { type: String, unique: true }
+  username: { type: String, unique: true },
+  ipcreated: String
 });
 
 

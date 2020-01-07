@@ -1,11 +1,13 @@
 const User = require('../models/User');
 const shared = require('./shared');
+const requestIp = require('request-ip');
 
 
 // ## Create new user ##
 
 module.exports = function signUpController(req, res, next) {
   const { username, email, password } = req.body;
+  const ipcreated = requestIp.getClientIp(req);
 
   // To avoid a document without password in the DB (else it will give success response)
   // To do: add possibility to log in with email
@@ -30,7 +32,8 @@ module.exports = function signUpController(req, res, next) {
       date: Date(),
       username,
       email,
-      password
+      password,
+      ipcreated
     });
 
     // Save the document to the DB
