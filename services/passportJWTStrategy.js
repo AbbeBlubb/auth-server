@@ -17,7 +17,7 @@ const jwtOptions = {
 // The payload contains the decoded JWT token, that is, the decoded subject/user.id and the iat/timestamp
 // The second argument is the callback
 const jwtLogin = new JwtStrategy(jwtOptions, function(payload, done){
-  console.log('passport.js payload: ', payload);
+  //console.log('passport.js payload: ', payload);
   // See if the sub/user.id in the payload exists in the DB
   // If it does, call the done-callback with the returned object (the whole DB document)
   // Otherwise, call the done-callback without a user object

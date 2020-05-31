@@ -40,7 +40,7 @@ userSchema.pre('save', function(next) {
 
       // Overwrite the given plain text password with the encrypted-version-and-salt-containing password
       user.password = hash;
-      console.log('Encrypted password: ', user.password);
+      //console.log('Encrypted password: ', user.password);
 
       // Continue with next step after the pre-save hook callback
       next();
